@@ -1,6 +1,7 @@
 import Sequelize from 'sequelize'
 import squel from 'squel'
 import _ from 'lodash'
+import Table from './table'
 
 class Connector {
   _database = 'allsquare_prod'
@@ -24,26 +25,28 @@ class Connector {
     return this._database
   }
 
-  async schema() {
-    const schemas = await this._sequelize
+  async tableNames() {
+    const tableNames = await this._sequelize
       .getQueryInterface()
       .showAllSchemas()
       .catch((err) => console.log('Error: Show schema doesnt work', err))
 
-    return schemas.map((schema) => Object.values(schema)[0])
+    return tableNames.map((blob) => Object.values(blob)[0])
   }
 
   async select(selected) {
-    const query = squel
-      .select()
-      .from(selected)
-      .limit(10)
+    const [results, types] = await Promise.all([
+      this._sequelize.query(
+        squel
+          .select()
+          .from(selected)
+          .limit(10)
+          .toString()
+      ),
+      this._sequelize.query(`SHOW COLUMNS FROM ${selected}`)
+    ]).catch((err) => console.error('Error:', err))
 
-    const results = await this._sequelize
-      .query(query.toString())
-      .catch((err) => console.error('Error: Can select', err))
-
-    return _.flatten(results)
+    return new Table(selected, _.flatten(results), _.flatten(types))
   }
 }
 

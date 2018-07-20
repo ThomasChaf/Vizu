@@ -9,29 +9,26 @@ const propTypes = {
   connector: PropTypes.object.isRequired
 }
 class InterfaceComponent extends React.Component {
-  state = { schemas: null, results: null }
+  state = { tableNames: null, currentTable: null }
 
   async componentDidMount() {
-    this.setState({ schemas: await this.props.connector.schema() })
+    this.setState({ tableNames: await this.props.connector.tableNames() })
   }
 
-  handleSelect = async (selected) => {
-    const results = await this.props.connector.select(selected)
-    this.setState({ selected, results })
-  }
+  handleSelect = async (selected) => this.setState({ currentTable: await this.props.connector.select(selected) })
 
   render() {
-    if (!this.state.schemas) return <div>Loading...</div>
+    if (!this.state.tableNames) return <div>Loading...</div>
 
     return (
       <div className="interface">
         <TablesBar
           database={this.props.connector.database}
           onSelect={this.handleSelect}
-          selected={this.state.selected}
-          schemas={this.state.schemas}
+          selected={this.state.currentTable?.name}
+          tableNames={this.state.tableNames}
         />
-        <Result results={this.state.results} />
+        <Result table={this.state.currentTable} />
       </div>
     )
   }

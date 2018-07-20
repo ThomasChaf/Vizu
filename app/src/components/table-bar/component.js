@@ -5,7 +5,7 @@ import './style.scss'
 
 const propTypes = {
   database: PropTypes.string,
-  schemas: PropTypes.array.isRequired,
+  tableNames: PropTypes.array.isRequired,
   selected: PropTypes.string
 }
 const TablesBarComponent = (props) => (
@@ -13,7 +13,7 @@ const TablesBarComponent = (props) => (
     <span className="table-bar-header">{props.database}</span>
 
     <div className="table-bar-list">
-      {props.schemas.map((name, key) => (
+      {props.tableNames.map((name, key) => (
         <Row key={key} onClick={() => props.onSelect(name)} selected={name === props.selected} name={name} />
       ))}
     </div>

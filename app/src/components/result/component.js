@@ -1,6 +1,5 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
 import './style.scss'
 
 const Cell = (props) => {
@@ -29,27 +28,21 @@ Row.propTypes = {
 }
 
 const propTypes = {
-  results: PropTypes.array
+  table: PropTypes.object
 }
 const ResultComponent = (props) => {
-  if (!props.results) return null
-
-  const keys = Object.keys(props.results[0])
-  const head = []
-  if (keys.indexOf('id') !== -1) head.push('id')
-
-  _.pull(keys, 'id').map((k) => head.push(k))
+  if (!props.table) return null
 
   return (
     <div className="result-box">
       <table>
         <thead>
-          <tr>{head.map((name, key) => <td key={key}>{name}</td>)}</tr>
+          <tr>{props.table.head.map((name, key) => <td key={key}>{name}</td>)}</tr>
         </thead>
         <tbody>
-          {props.results.map((result, key) => (
+          {props.table.rows.map((result, key) => (
             <tr key={key}>
-              <Row head={head} result={result} />
+              <Row head={props.table.head} result={result} />
             </tr>
           ))}
         </tbody>
