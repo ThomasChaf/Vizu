@@ -1,0 +1,27 @@
+.table-bar {
+  overflow-y: auto;
+
+  width: 300px;
+  height: 100vh;
+}
+
+.table-bar-header {
+  padding: 5px;
+}
+
+.table-bar-list {
+  display: flex;
+  flex-direction: column;
+
+  border-right: 1px solid #eee;
+}
+
+.table-bar-row {
+  padding: 5px;
+
+  border-bottom: 1px solid #eee;
+}
+
+.table-bar-row.selected {
+  background: #aaa;
+}
