@@ -13,13 +13,16 @@ module.exports = {
     filename: 'bundle.js'
   },
 
+  devtool: 'eval-source-map',
+
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader',
         options: {
-          presets: ['react']
+          presets: ['react'],
+          plugins: ['transform-class-properties', 'babel-plugin-transform-object-rest-spread']
         }
       },
       {

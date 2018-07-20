@@ -1,29 +1,32 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Hoc from '../../contexts/connector'
 import TablesBar from '../table-bar/component'
 
 const propTypes = {
-  database: PropTypes.string.isRequired,
-  schemas: PropTypes.array
+  connector: PropTypes.object.isRequired
 }
 class InterfaceComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { selected: null }
+  state = { schemas: null }
 
-    this.handleSelect = (selected) => this.setState({ selected })
+  async componentDidMount() {
+    this.setState({ schemas: await this.props.connector.schema() })
+  }
+
+  handleSelect = (selected) => {
+    this.setState({ selected })
   }
 
   render() {
-    if (!this.props.schemas) return <div>Loading...</div>
+    if (!this.state.schemas) return <div>Loading...</div>
 
     return (
       <div>
         <TablesBar
-          database={this.props.database}
+          database={this.props.connector.database}
           onSelect={this.handleSelect}
           selected={this.state.selected}
-          schemas={this.props.schemas}
+          schemas={this.state.schemas}
         />
       </div>
     )
@@ -31,4 +34,4 @@ class InterfaceComponent extends React.Component {
 }
 InterfaceComponent.propTypes = propTypes
 
-export default InterfaceComponent
+export default Hoc.withConnector(InterfaceComponent)

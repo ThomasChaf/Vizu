@@ -1,20 +1,17 @@
 import React from 'react'
-import Sequelize from './modules/sequelize'
+import Connector from './modules/connector'
+import ConnectorContext from './contexts/connector'
 import Interface from './components/interface/component'
 
 class App extends React.Component {
-  constructor(props) {
-    super(props)
-    this._sequelize = new Sequelize()
-    this.state = { schemas: null }
-  }
-
-  async componentDidMount() {
-    this.setState({ schemas: await this._sequelize.schema() })
-  }
+  state = { connector: new Connector() }
 
   render() {
-    return <Interface database={this._sequelize.database} schemas={this.state.schemas} />
+    return (
+      <ConnectorContext.Provider value={this.state.connector}>
+        <Interface />
+      </ConnectorContext.Provider>
+    )
   }
 }
 
