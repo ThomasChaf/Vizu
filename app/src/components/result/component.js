@@ -16,7 +16,7 @@ Cell.propTypes = {
 const Row = (props) => (
   <React.Fragment>
     {props.head.map((name, key) => (
-      <td key={key}>
+      <td className="result-box-body-cell" key={key}>
         <Cell value={props.result[name]} />
       </td>
     ))}
@@ -36,12 +36,18 @@ const ResultComponent = (props) => {
   return (
     <div className="result-box">
       <table>
-        <thead>
-          <tr>{props.table.head.map((name, key) => <td key={key}>{name}</td>)}</tr>
+        <thead className="result-box-head">
+          <tr className="result-box-head-row">
+            {props.table.head.map((name, key) => (
+              <td key={key} className="result-box-head-cell">
+                {name}
+              </td>
+            ))}
+          </tr>
         </thead>
-        <tbody>
+        <tbody className="result-box-body">
           {props.table.rows.map((result, key) => (
-            <tr key={key}>
+            <tr key={key} className="result-box-body-row">
               <Row head={props.table.head} result={result} />
             </tr>
           ))}
