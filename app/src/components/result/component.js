@@ -2,22 +2,17 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import './style.scss'
 
-const Cell = (props) => {
-  if (typeof props.value === 'object') {
-    return 'object'
-  }
+const _format = (column, rowResult) => {
+  const value = rowResult[column.name]
 
-  return props.value
-}
-Cell.propTypes = {
-  value: PropTypes.any
+  return column.format(value)
 }
 
 const Row = (props) => (
   <React.Fragment>
-    {props.head.map((name, key) => (
+    {props.head.map((column, key) => (
       <td className="result-box-body-cell" key={key}>
-        <Cell value={props.result[name]} />
+        {_format(column, props.result)}
       </td>
     ))}
   </React.Fragment>
@@ -38,9 +33,9 @@ const ResultComponent = (props) => {
       <table>
         <thead className="result-box-head">
           <tr className="result-box-head-row">
-            {props.table.head.map((name, key) => (
+            {props.table.head.map((column, key) => (
               <td key={key} className="result-box-head-cell">
-                {name}
+                {column.name}
               </td>
             ))}
           </tr>
