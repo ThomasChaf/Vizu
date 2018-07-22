@@ -1,5 +1,6 @@
 .table-bar {
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 
   height: 100vh;
 }
@@ -10,6 +11,7 @@
 
 .table-bar-list {
   display: flex;
+  overflow-y: scroll;
   flex-direction: column;
 
   border-right: 1px solid #eee;

@@ -5,21 +5,41 @@ import './style.scss'
 
 const propTypes = {
   database: PropTypes.string,
+  onSelect: PropTypes.func.isRequired,
   tableNames: PropTypes.array.isRequired,
   selected: PropTypes.string
 }
-const TablesBarComponent = (props) => (
-  <div className="table-bar">
-    <span className="table-bar-header">{props.database}</span>
+class TablesBarComponent extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = { tableNames: this.props.tableNames }
+  }
 
-    <div className="table-bar-list">
-      {props.tableNames.map((name, key) => (
-        <Row key={key} onClick={() => props.onSelect(name)} selected={name === props.selected} name={name} />
-      ))}
-    </div>
-  </div>
-)
+  handleFilter(filter) {
+    this.setState({ tableNames: this.props.tableNames.filter((tableName) => tableName.includes(filter)) })
+  }
 
+  render() {
+    return (
+      <div className="table-bar">
+        <span className="table-bar-header">{this.props.database}</span>
+
+        <input autoFocus onChange={(e) => this.handleFilter(e.target.value)} placeholder="Filter" />
+
+        <div className="table-bar-list">
+          {this.state.tableNames.map((name, key) => (
+            <Row
+              key={key}
+              onClick={() => this.props.onSelect(name)}
+              selected={name === this.props.selected}
+              name={name}
+            />
+          ))}
+        </div>
+      </div>
+    )
+  }
+}
 TablesBarComponent.propTypes = propTypes
 
 export default TablesBarComponent
