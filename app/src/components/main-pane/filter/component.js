@@ -28,7 +28,5 @@ export default withFormik({
     return errors
   },
 
-  handleSubmit: async (values, { props }) => props.onSubmit(values)
-  //   setSubmitting(false)
-  // }
+  handleSubmit: async ({ filter }, { props }) => props.onSubmit(filter)
 })(FilterComponent)

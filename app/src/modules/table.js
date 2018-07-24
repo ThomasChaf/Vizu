@@ -40,11 +40,11 @@ class Table {
     this._types = types
     this._head = []
 
-    const columns = Object.keys(this.rows[0])
+    const columns = this._types.map((type) => type.Field)
 
-    if (columns.indexOf('id') !== -1) this.head.push(this._createColumn('id'))
+    if (columns.indexOf('id') !== -1) this._head.push(this._createColumn('id'))
 
-    _.pull(columns, 'id').map((columnName) => this.head.push(this._createColumn(columnName)))
+    _.pull(columns, 'id').map((columnName) => this._head.push(this._createColumn(columnName)))
   }
 
   _createColumn = (name) => new Column(name, this._types.find((type) => type.Field === name))

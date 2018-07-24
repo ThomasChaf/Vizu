@@ -36,7 +36,7 @@ class Connector {
 
   tableInfo = memoize((tableName) => this._sequelize.query(`SHOW COLUMNS FROM ${tableName}`))
 
-  async select(tableName, condition = '') {
+  async select(tableName, condition = '', order = '') {
     const [results, types] = await Promise.all([
       this._sequelize.query(
         squel

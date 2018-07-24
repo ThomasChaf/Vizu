@@ -1,8 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Hoc from '../../contexts/connector'
-import Filter from './filter/component'
-import Result from './result/component'
+import SmartTable from './smart-table/component'
 import './style.scss'
 
 const propTypes = {
@@ -20,8 +19,8 @@ class MainePaneComponent extends React.Component {
     this.setState({ table })
   }
 
-  handleFilter = async ({ filter }) => {
-    const table = await this.props.connector.select(this.props.tableName, filter)
+  executeQuery = async ({ filter, order }) => {
+    const table = await this.props.connector.select(this.props.tableName, filter, order)
 
     this.setState({ table })
   }
@@ -31,9 +30,7 @@ class MainePaneComponent extends React.Component {
 
     return (
       <div className="main-pane-box">
-        <Filter onSubmit={this.handleFilter} />
-
-        <Result table={this.state.table} />
+        <SmartTable table={this.state.table} executeQuery={this.executeQuery} />
       </div>
     )
   }
@@ -41,7 +38,3 @@ class MainePaneComponent extends React.Component {
 MainePaneComponent.propTypes = propTypes
 
 export default Hoc.withConnector(MainePaneComponent)
-
-// TODO everytime component is mounted:
-// const
-// Then filter

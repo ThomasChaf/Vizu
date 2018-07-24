@@ -32,9 +32,18 @@ const ResultComponent = (props) => {
     <div className="result-box">
       <table>
         <thead className="result-box-head">
+          <tr className="result-box-head-order">
+            {props.table.head.map((column, key) => (
+              <td key={key} className="result-box-head-order-cell">
+                <button type="button" onClick={() => this.onOrder(column)}>
+                  v
+                </button>
+              </td>
+            ))}
+          </tr>
           <tr className="result-box-head-row">
             {props.table.head.map((column, key) => (
-              <td key={key} className="result-box-head-cell">
+              <td key={key} className="result-box-head-row-cell">
                 {column.name}
               </td>
             ))}
