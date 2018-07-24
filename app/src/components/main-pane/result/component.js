@@ -1,28 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import FilterOrder from './filter-order'
+import Row from './row'
 import './style.scss'
 
-const _format = (column, rowResult) => {
-  const value = rowResult[column.name]
-
-  return column.format(value)
-}
-
-const Row = (props) => (
-  <React.Fragment>
-    {props.head.map((column, key) => (
-      <td className="result-box-body-cell" key={key}>
-        {_format(column, props.result)}
-      </td>
-    ))}
-  </React.Fragment>
-)
-Row.propTypes = {
-  head: PropTypes.array,
-  result: PropTypes.object
-}
-
 const propTypes = {
+  orders: PropTypes.array.isRequired,
+  onOrder: PropTypes.func.isRequired,
   table: PropTypes.object
 }
 const ResultComponent = (props) => {
@@ -33,13 +17,7 @@ const ResultComponent = (props) => {
       <table>
         <thead className="result-box-head">
           <tr className="result-box-head-order">
-            {props.table.head.map((column, key) => (
-              <td key={key} className="result-box-head-order-cell">
-                <button type="button" onClick={() => this.onOrder(column)}>
-                  v
-                </button>
-              </td>
-            ))}
+            <FilterOrder orders={props.orders} onOrder={props.onOrder} />
           </tr>
           <tr className="result-box-head-row">
             {props.table.head.map((column, key) => (

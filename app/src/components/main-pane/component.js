@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Hoc from '../../contexts/connector'
+import Hoc from 'contexts/connector'
 import SmartTable from './smart-table/component'
 import './style.scss'
 
@@ -19,8 +19,8 @@ class MainePaneComponent extends React.Component {
     this.setState({ table })
   }
 
-  executeQuery = async ({ filter, order }) => {
-    const table = await this.props.connector.select(this.props.tableName, filter, order)
+  executeQuery = async ({ filter, orders }) => {
+    const table = await this.props.connector.select(this.props.tableName, filter, orders)
 
     this.setState({ table })
   }

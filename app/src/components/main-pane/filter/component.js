@@ -15,8 +15,8 @@ const FilterComponent = (props) => (
 FilterComponent.propTypes = propTypes
 
 export default withFormik({
-  mapPropsToValues: () => ({
-    filter: ''
+  mapPropsToValues: (props) => ({
+    filter: props.filter
   }),
 
   validate: (values) => {

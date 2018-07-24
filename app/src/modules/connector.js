@@ -1,7 +1,7 @@
 import Sequelize from 'sequelize'
-import squel from 'squel'
 import memoize from 'memoize-one'
 import Table from './table'
+import QueryBuilder from './query-builder'
 
 class Connector {
   _database = 'allsquare_prod'
@@ -29,19 +29,19 @@ class Connector {
     const tableNames = await this._sequelize
       .getQueryInterface()
       .showAllSchemas()
-      .catch((err) => console.log('Error: Show schema doesnt work', err))
+      .catch((err) => console.error('Error: Show schema doesnt work', err))
 
     return tableNames.map((blob) => Object.values(blob)[0])
   }
 
   tableInfo = memoize((tableName) => this._sequelize.query(`SHOW COLUMNS FROM ${tableName}`))
 
-  async select(tableName, condition = '', order = '') {
+  async select(tableName, condition = '', orders = []) {
     const [results, types] = await Promise.all([
       this._sequelize.query(
-        squel
-          .select()
+        QueryBuilder.select
           .from(tableName)
+          .order(orders)
           .where(condition)
           .limit(10)
           .toString()

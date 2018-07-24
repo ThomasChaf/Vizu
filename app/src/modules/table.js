@@ -18,7 +18,7 @@ class Column {
     this._type = type
     this._format = this.FORMATS.find((format) => format.match(type.Type)) || {
       toString: () => {
-        console.log(`Type: ${type.Type} not implemented`)
+        console.info(`Type: ${type.Type} not implemented`)
         return ''
       }
     }
