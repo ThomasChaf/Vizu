@@ -1,6 +1,6 @@
 import Sequelize from 'sequelize'
 import squel from 'squel'
-import _ from 'lodash'
+import memoize from 'memoize-one'
 import Table from './table'
 
 class Connector {
@@ -34,19 +34,22 @@ class Connector {
     return tableNames.map((blob) => Object.values(blob)[0])
   }
 
-  async select(selected) {
+  tableInfo = memoize((tableName) => this._sequelize.query(`SHOW COLUMNS FROM ${tableName}`))
+
+  async select(tableName, condition = '') {
     const [results, types] = await Promise.all([
       this._sequelize.query(
         squel
           .select()
-          .from(selected)
+          .from(tableName)
+          .where(condition)
           .limit(10)
           .toString()
       ),
-      this._sequelize.query(`SHOW COLUMNS FROM ${selected}`)
+      this.tableInfo(tableName)
     ]).catch((err) => console.error('Error:', err))
 
-    return new Table(selected, _.flatten(results), _.flatten(types))
+    return new Table(tableName, results[0], types[0])
   }
 }
 

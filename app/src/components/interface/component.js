@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Hoc from '../../contexts/connector'
 import TablesBar from '../table-bar/component'
-import Result from '../result/component'
+import MainPane from '../main-pane/component'
 import './style.scss'
 
 const propTypes = {
@@ -15,7 +15,7 @@ class InterfaceComponent extends React.Component {
     this.setState({ tableNames: await this.props.connector.tableNames() })
   }
 
-  handleSelect = async (selected) => this.setState({ currentTable: await this.props.connector.select(selected) })
+  handleSelect = async (selected) => this.setState({ currentTable: selected })
 
   render() {
     if (!this.state.tableNames) return <div>Loading...</div>
@@ -25,10 +25,10 @@ class InterfaceComponent extends React.Component {
         <TablesBar
           database={this.props.connector.database}
           onSelect={this.handleSelect}
-          selected={this.state.currentTable?.name}
+          selected={this.state.currentTable}
           tableNames={this.state.tableNames}
         />
-        <Result table={this.state.currentTable} />
+        <MainPane key={this.state.currentTable} tableName={this.state.currentTable} />
       </div>
     )
   }

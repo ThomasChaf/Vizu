@@ -45,8 +45,6 @@ class Table {
     if (columns.indexOf('id') !== -1) this.head.push(this._createColumn('id'))
 
     _.pull(columns, 'id').map((columnName) => this.head.push(this._createColumn(columnName)))
-
-    console.log(types)
   }
 
   _createColumn = (name) => new Column(name, this._types.find((type) => type.Field === name))
