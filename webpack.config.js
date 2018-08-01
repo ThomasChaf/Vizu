@@ -1,5 +1,6 @@
 /* eslint-disable no-path-concat, prefer-template */
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
   watch: true,
@@ -41,6 +42,9 @@ module.exports = {
       filename: 'bundle.css',
       disable: false,
       allChunks: true
+    }),
+    new webpack.DefinePlugin({
+      $dirname: '__dirname'
     })
   ],
 

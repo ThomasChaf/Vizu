@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Hoc from 'contexts/connector'
-import SmartTable from './smart-table/component'
+import { withConnector } from '@contexts'
+import SmartTable from './smart-table'
 import './style.scss'
 
 const propTypes = {
@@ -37,4 +37,4 @@ class MainePaneComponent extends React.Component {
 }
 MainePaneComponent.propTypes = propTypes
 
-export default Hoc.withConnector(MainePaneComponent)
+export default withConnector(MainePaneComponent)

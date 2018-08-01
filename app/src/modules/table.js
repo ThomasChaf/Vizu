@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import moment from 'moment'
 
 class Column {
@@ -13,9 +12,9 @@ class Column {
     }
   ]
 
-  constructor(name, type) {
-    this._name = name
-    this._type = type
+  constructor(type) {
+    this._name = type.Field
+    this._type = type.Type
     this._format = this.FORMATS.find((format) => format.match(type.Type)) || {
       toString: () => {
         console.info(`Type: ${type.Type} not implemented`)
@@ -38,16 +37,12 @@ class Table {
     this._name = name
     this._rows = rows
     this._types = types
-    this._head = []
+    this._head = {}
 
-    const columns = this._types.map((type) => type.Field)
-
-    if (columns.indexOf('id') !== -1) this._head.push(this._createColumn('id'))
-
-    _.pull(columns, 'id').map((columnName) => this._head.push(this._createColumn(columnName)))
+    this._types.forEach((type) => {
+      this._head[type.Field] = new Column(type)
+    })
   }
-
-  _createColumn = (name) => new Column(name, this._types.find((type) => type.Field === name))
 
   get name() {
     return this._name

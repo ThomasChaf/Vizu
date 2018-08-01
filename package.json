@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Electron + React 16 + Webpack 4 template.",
   "main": "main_process.js",
-  "moduleRoots": ["app/src"],
+  "moduleRoots": [
+    "app/src"
+  ],
   "scripts": {
     "bundle": "webpack --mode development",
     "serve": "electron .",
@@ -46,6 +48,7 @@
     "babel-eslint": "^8.2.6",
     "babel-preset-es2015": "^6.24.1",
     "classnames": "^2.2.6",
+    "electron-json-storage": "^4.1.1",
     "formik": "^1.0.1",
     "lodash": "^4.17.10",
     "memoize-one": "^4.0.0",
@@ -53,7 +56,8 @@
     "mysql2": "^1.5.3",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
-    "sequelize": "^4.38.0",
-    "squel": "^5.12.2"
+    "reflect-metadata": "^0.1.12",
+    "squel": "^5.12.2",
+    "typeorm": "^0.2.7"
   }
 }

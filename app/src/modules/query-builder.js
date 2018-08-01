@@ -1,4 +1,5 @@
 import squel from 'squel'
+import _ from 'lodash'
 import { ORDER } from '@constants'
 
 class QueryBuilder {
@@ -19,11 +20,9 @@ class QueryBuilder {
   limit = (...params) => this._similar('limit', params)
 
   order(orders) {
-    orders.forEach((order) => {
-      const [tableName, direction] = order
-
-      if (direction) {
-        this._query = this._query.order(tableName, direction === ORDER.ASC)
+    _.forIn(orders, (order) => {
+      if (order.direction) {
+        this._query = this._query.order(order.tableName, order.direction === ORDER.ASC)
       }
     })
 

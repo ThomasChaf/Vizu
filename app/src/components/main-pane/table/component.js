@@ -1,27 +1,38 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { withConfig } from '@contexts'
 import FilterOrder from './filter-order'
 import Row from './row'
 import './style.scss'
 
 const propTypes = {
-  orders: PropTypes.array.isRequired,
+  config: PropTypes.object,
+  orders: PropTypes.object.isRequired,
   onOrder: PropTypes.func.isRequired,
   table: PropTypes.object
 }
 const ResultComponent = (props) => {
   if (!props.table) return null
 
+  const head = props.config.organise(props.table.head)
+  const orders = props.config.organise(props.orders)
+
   return (
     <div className="result-box">
       <table>
         <thead className="result-box-head">
-          <tr className="result-box-head-order">
-            <FilterOrder orders={props.orders} onOrder={props.onOrder} />
-          </tr>
+          <FilterOrder orders={orders} onOrder={props.onOrder} />
           <tr className="result-box-head-row">
-            {props.table.head.map((column, key) => (
-              <td key={key} className="result-box-head-row-cell">
+            {head.map((column, key) => (
+              <td
+                draggable
+                onDrop={() => console.log('drop')}
+                onDragOver={(e) => {
+                  e.preventDefault()
+                }}
+                key={key}
+                className="result-box-head-row-cell"
+              >
                 {column.name}
               </td>
             ))}
@@ -30,7 +41,7 @@ const ResultComponent = (props) => {
         <tbody className="result-box-body">
           {props.table.rows.map((result, key) => (
             <tr key={key} className="result-box-body-row">
-              <Row head={props.table.head} result={result} />
+              <Row head={head} result={result} />
             </tr>
           ))}
         </tbody>
@@ -40,4 +51,4 @@ const ResultComponent = (props) => {
 }
 ResultComponent.propTypes = propTypes
 
-export default ResultComponent
+export default withConfig(ResultComponent)

@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Hoc from '../../contexts/connector'
+import { withConnector } from '@contexts'
 import TablesBar from '../table-bar/component'
 import MainPane from '../main-pane/component'
 import './style.scss'
@@ -35,4 +35,4 @@ class InterfaceComponent extends React.Component {
 }
 InterfaceComponent.propTypes = propTypes
 
-export default Hoc.withConnector(InterfaceComponent)
+export default withConnector(InterfaceComponent)
