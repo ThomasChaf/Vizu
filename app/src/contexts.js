@@ -1,8 +1,10 @@
 import React from 'react'
+import Config from './modules/configuration'
+import Connector from './modules/connector'
 
 export const Contexts = {
-  Connector: React.createContext(),
-  Config: React.createContext()
+  Connector: React.createContext(new Connector()),
+  Config: React.createContext(new Config())
 }
 
 export const withConnector = (Component) => (props) => (

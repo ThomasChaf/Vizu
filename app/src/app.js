@@ -1,25 +1,33 @@
-import React from 'react'
-import { Contexts } from '@contexts'
 import 'reflect-metadata'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { ipcRenderer } from 'electron'
-import Config from './modules/configuration'
-import Connector from './modules/connector'
+import { withConnector, withConfig } from '@contexts'
 import Interface from './components/interface/component'
 
+const propTypes = {
+  config: PropTypes.object.isRequired,
+  connector: PropTypes.object.isRequired
+}
 class App extends React.Component {
-  state = { connector: new Connector(), config: new Config(), error: null, mounted: false }
+  state = { error: null, mounted: false }
 
   async componentDidMount() {
-    await this.state.config.init(this.state.connector.database)
-    const res = await this.state.connector.init().catch((e) => this.setState({ error: e.message }))
+    try {
+      await this.props.config.init(this.props.connector.database)
 
-    if (res) this.setState({ mounted: true })
+      const res = await this.props.connector.init()
+
+      if (res) this.setState({ mounted: true })
+    } catch (e) {
+      this.setState({ error: e.message })
+    }
 
     ipcRenderer.on('app-close', this.handleExit)
   }
 
   handleExit = async () => {
-    await this.state.config.save(() => ipcRenderer.send('closed').catch((e) => this.setState({ error: e.message })))
+    await this.props.config.save(() => ipcRenderer.send('closed').catch((e) => this.setState({ error: e.message })))
   }
 
   render() {
@@ -27,14 +35,9 @@ class App extends React.Component {
 
     if (!this.state.mounted) return null
 
-    return (
-      <Contexts.Connector.Provider value={this.state.connector}>
-        <Contexts.Config.Provider value={this.state.config}>
-          <Interface />
-        </Contexts.Config.Provider>
-      </Contexts.Connector.Provider>
-    )
+    return <Interface />
   }
 }
+App.propTypes = propTypes
 
-export default App
+export default withConfig(withConnector(App))
