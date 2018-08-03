@@ -9,7 +9,7 @@ const propTypes = {
   tableNames: PropTypes.array.isRequired,
   selected: PropTypes.string
 }
-class TablesBarComponent extends React.Component {
+class TablesListComponent extends React.Component {
   constructor(props) {
     super(props)
     this.state = { tableNames: this.props.tableNames }
@@ -21,12 +21,12 @@ class TablesBarComponent extends React.Component {
 
   render() {
     return (
-      <div className="table-bar">
-        <span className="table-bar-header">{this.props.database}</span>
+      <div className="tables-list">
+        <span className="tables-list-header">{this.props.database}</span>
 
         <input autoFocus onChange={(e) => this.handleFilter(e.target.value)} placeholder="Filter" />
 
-        <div className="table-bar-list">
+        <div className="tables-list-list">
           {this.state.tableNames.map((name, key) => (
             <Row
               key={key}
@@ -40,6 +40,6 @@ class TablesBarComponent extends React.Component {
     )
   }
 }
-TablesBarComponent.propTypes = propTypes
+TablesListComponent.propTypes = propTypes
 
-export default TablesBarComponent
+export default TablesListComponent

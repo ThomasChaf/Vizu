@@ -1,13 +1,13 @@
-.table-bar {
+.tables-list {
   display: flex;
   flex-direction: column;
 }
 
-.table-bar-header {
+.tables-list-header {
   padding: 5px;
 }
 
-.table-bar-list {
+.tables-list-list {
   display: flex;
   overflow-y: scroll;
   flex-direction: column;
@@ -15,12 +15,12 @@
   border-right: 1px solid #eee;
 }
 
-.table-bar-row {
+.tables-list-row {
   padding: 5px;
 
   border-bottom: 1px solid #eee;
 }
 
-.table-bar-row.selected {
+.tables-list-row.selected {
   background: #aaa;
 }

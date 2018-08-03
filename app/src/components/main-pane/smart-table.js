@@ -1,16 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
-import { ORDER } from '@constants'
 import Filter from './filter/component'
 import Table from './table/component'
-
-const nextDirection = (direction) =>
-  ({
-    [ORDER.DEFAULT]: ORDER.ASC,
-    [ORDER.ASC]: ORDER.DESC,
-    [ORDER.DESC]: ORDER.ASC
-  }[direction])
+import { computeOrders, Order } from './order-helper'
 
 const propTypes = {
   executeQuery: PropTypes.func.isRequired,
@@ -21,24 +14,14 @@ class SmartTableComponent extends React.Component {
     super(props)
     this.state = {
       filter: '',
-      orders: _.mapValues(props.table.head, (x, tableName) => ({
-        tableName,
-        direction: ORDER.DEFAULT
-      }))
+      orders: _.mapValues(props.table.head, (x, tableName) => new Order(tableName))
     }
   }
 
   handleFilter = (filter) => this.setState({ filter }, () => this.props.executeQuery(this.state))
 
   handleOrder = (newOrder) =>
-    this.setState(
-      {
-        orders: _.merge({}, this.state.orders, {
-          [newOrder.tableName]: { tableName: newOrder.tableName, direction: nextDirection(newOrder.direction) }
-        })
-      },
-      () => this.props.executeQuery(this.state)
-    )
+    this.setState({ orders: computeOrders(this.state, newOrder) }, () => this.props.executeQuery(this.state))
 
   render() {
     return (

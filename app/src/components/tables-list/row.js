@@ -8,7 +8,7 @@ const propTypes = {
   selected: PropTypes.bool.isRequired
 }
 const RowComponent = (props) => (
-  <span onClick={props.onClick} className={cn('table-bar-row', { selected: props.selected })}>
+  <span onClick={props.onClick} className={cn('tables-list-row', { selected: props.selected })}>
     {props.name}
   </span>
 )

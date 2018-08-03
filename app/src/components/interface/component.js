@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { withConnector } from '@contexts'
-import TablesBar from '../table-bar/component'
+import TablesBar from '../tables-list/component'
 import MainPane from '../main-pane/component'
 import './style.scss'
 

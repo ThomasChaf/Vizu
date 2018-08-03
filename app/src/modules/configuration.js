@@ -17,7 +17,6 @@ class ConfigurationManager {
     })
   }
 
-  /* TODO this method but before its probably good to get autocompletion from props to know what's in head */
   organise(elements) {
     if (!this._config.levels) {
       this._config.levels = []
