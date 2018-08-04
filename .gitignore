@@ -44,4 +44,4 @@ app/build
 
 #Database
 
-app/database
+.database

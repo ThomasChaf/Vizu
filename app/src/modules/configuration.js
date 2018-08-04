@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 class ConfigurationManager {
   constructor() {
-    storage.setDataPath(`${$dirname}/database`)
+    storage.setDataPath(`${$dirname}/../.database`)
   }
 
   init = (database) => {
