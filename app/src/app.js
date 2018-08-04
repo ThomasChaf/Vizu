@@ -3,7 +3,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { ipcRenderer } from 'electron'
 import { withConnector, withConfig } from '@contexts'
-import Interface from './components/interface/component'
+import Root from './components/root'
 
 const propTypes = {
   config: PropTypes.object.isRequired,
@@ -35,7 +35,7 @@ class App extends React.Component {
 
     if (!this.state.mounted) return null
 
-    return <Interface />
+    return <Root />
   }
 }
 App.propTypes = propTypes
