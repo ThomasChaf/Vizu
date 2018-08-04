@@ -9,7 +9,7 @@ const FilterOrderComponent = (props) => (
   <tr className="result-box-head-order">
     {props.orders.map((order, key) => (
       <td key={key} className="result-box-head-order-cell">
-        <button type="button" onClick={() => props.onOrder(order)}>
+        <button type="button" onClick={() => props.onOrder(order.tableName)}>
           {{ [ORDER.DEFAULT]: '-', [ORDER.DESC]: '^', [ORDER.ASC]: 'v' }[order.direction]}
         </button>
       </td>

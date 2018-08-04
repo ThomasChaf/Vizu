@@ -11,43 +11,57 @@ const propTypes = {
   onOrder: PropTypes.func.isRequired,
   table: PropTypes.object
 }
-const ResultComponent = (props) => {
-  if (!props.table) return null
+class ResultComponent extends React.Component {
+  state = { toggleColumn: true }
 
-  const head = props.config.organise(props.table.head)
-  const orders = props.config.organise(props.orders)
+  handleColumnArranging(column1, column2) {
+    this.props.config.swap(column1, column2)
+    this.setState({ toggleColumn: !this.state.toggleColumn })
+  }
 
-  return (
-    <div className="result-box">
-      <table>
-        <thead className="result-box-head">
-          <FilterOrder orders={orders} onOrder={props.onOrder} />
-          <tr className="result-box-head-row">
-            {head.map((column, key) => (
-              <td
-                draggable
-                onDrop={() => console.log('drop')}
-                onDragOver={(e) => {
-                  e.preventDefault()
-                }}
-                key={key}
-                className="result-box-head-row-cell"
-              >
-                {column.name}
-              </td>
-            ))}
-          </tr>
-        </thead>
-        <tbody className="result-box-body">
-          {props.table.rows.map((result, key) => (
-            <tr key={key} className="result-box-body-row">
-              <Row head={head} result={result} />
+  render() {
+    if (!this.props.table) return null
+
+    const head = this.props.config.organise(this.props.table.head)
+    const orders = this.props.config.organise(this.props.orders)
+
+    return (
+      <div className="result-box">
+        <table>
+          <thead className="result-box-head">
+            <FilterOrder orders={orders} onOrder={this.props.onOrder} />
+            <tr className="result-box-head-row">
+              {head.map((column, key) => (
+                <td
+                  draggable
+                  onDragStart={(event) => {
+                    event.dataTransfer.setData('column', column.name)
+                  }}
+                  onDragOver={(event) => event.preventDefault()}
+                  onDrop={(event) => {
+                    const targetColumn = event.dataTransfer.getData('column')
+
+                    this.handleColumnArranging(column.name, targetColumn)
+                  }}
+                  key={key}
+                  className="result-box-head-row-cell"
+                >
+                  {column.name}
+                </td>
+              ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  )
+          </thead>
+          <tbody className="result-box-body">
+            {this.props.table.rows.map((result, key) => (
+              <tr key={key} className="result-box-body-row">
+                <Row head={head} result={result} />
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
 }
 ResultComponent.propTypes = propTypes
 

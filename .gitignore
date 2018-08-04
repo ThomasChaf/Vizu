@@ -41,3 +41,7 @@ jspm_packages
 
 # Build
 app/build
+
+#Database
+
+app/database

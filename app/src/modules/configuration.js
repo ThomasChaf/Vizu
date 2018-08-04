@@ -1,4 +1,5 @@
 import storage from 'electron-json-storage'
+import _ from 'lodash'
 
 class ConfigurationManager {
   constructor() {
@@ -8,27 +9,42 @@ class ConfigurationManager {
   init = (database) => {
     this._database = database
 
-    storage.get(database, (error, data) => {
-      if (error) {
-        console.error(error)
-      }
-
-      this._config = JSON.parse(data)
+    return new Promise((resolve, reject) => {
+      storage.get(database, (error, data) => {
+        if (error) reject(error)
+        else {
+          this._config = data
+          resolve()
+        }
+      })
     })
   }
 
-  organise(elements) {
+  organise = (elements) => {
     if (!this._config.levels) {
-      this._config.levels = []
-      Object.keys(elements).map((columnName, level) => this._config.levels.push({ level, columnName, display: true }))
+      this._config.levels = {}
+      Object.keys(elements).forEach((columnName, position) => {
+        this._config.levels[columnName] = { position, columnName, display: true }
+      })
     }
 
-    return this._config.levels.map(({ columnName }) => elements[columnName])
+    const res = []
+    _.forIn(this._config.levels, (level) => {
+      res[level.position] = elements[level.columnName]
+    })
+
+    return res
+  }
+
+  swap = (column1, column2) => {
+    const tmp = this._config.levels[column1].position
+    this._config.levels[column1].position = this._config.levels[column2].position
+    this._config.levels[column2].position = tmp
   }
 
   save(onSave) {
     if (this._database && this._config) {
-      storage.set(this._database, JSON.stringify(this._config), (error) => {
+      storage.set(this._database, this._config, (error) => {
         if (error) throw error
 
         onSave()
