@@ -20,26 +20,26 @@ class ConfigurationManager {
     })
   }
 
-  organise = (elements) => {
-    if (!this._config.levels) {
-      this._config.levels = {}
+  organise = (tablename, elements) => {
+    if (!this._config[tablename]) {
+      this._config[tablename] = { levels: {} }
       Object.keys(elements).forEach((columnName, position) => {
-        this._config.levels[columnName] = { position, columnName, display: true }
+        this._config[tablename].levels[columnName] = { position, columnName, display: true }
       })
     }
 
     const res = []
-    _.forIn(this._config.levels, (level) => {
+    _.forIn(this._config[tablename].levels, (level) => {
       res[level.position] = elements[level.columnName]
     })
 
     return res
   }
 
-  swap = (column1, column2) => {
-    const tmp = this._config.levels[column1].position
-    this._config.levels[column1].position = this._config.levels[column2].position
-    this._config.levels[column2].position = tmp
+  swap = (tablename, column1, column2) => {
+    const tmp = this._config[tablename].levels[column1].position
+    this._config[tablename].levels[column1].position = this._config[tablename].levels[column2].position
+    this._config[tablename].levels[column2].position = tmp
   }
 
   save(onSave) {

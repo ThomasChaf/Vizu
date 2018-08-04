@@ -14,16 +14,17 @@ const propTypes = {
 class ResultComponent extends React.Component {
   state = { toggleColumn: true }
 
-  handleColumnArranging(column1, column2) {
-    this.props.config.swap(column1, column2)
+  handleColumnArranging(tablename, column1, column2) {
+    this.props.config.swap(tablename, column1, column2)
     this.setState({ toggleColumn: !this.state.toggleColumn })
   }
 
   render() {
     if (!this.props.table) return null
 
-    const head = this.props.config.organise(this.props.table.head)
-    const orders = this.props.config.organise(this.props.orders)
+    const tablename = this.props.table.name
+    const head = this.props.config.organise(tablename, this.props.table.head)
+    const orders = this.props.config.organise(tablename, this.props.orders)
 
     return (
       <div className="result-box">
@@ -41,7 +42,7 @@ class ResultComponent extends React.Component {
                   onDrop={(event) => {
                     const targetColumn = event.dataTransfer.getData('column')
 
-                    this.handleColumnArranging(column.name, targetColumn)
+                    this.handleColumnArranging(tablename, column.name, targetColumn)
                   }}
                   key={key}
                   className="result-box-head-row-cell"
