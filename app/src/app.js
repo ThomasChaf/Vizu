@@ -2,26 +2,19 @@ import 'reflect-metadata'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { ipcRenderer } from 'electron'
-import { withConnector, withConfig } from '@contexts'
+import { withConfig } from '@contexts'
 import Root from './components/root'
 
 const propTypes = {
-  config: PropTypes.object.isRequired,
-  connector: PropTypes.object.isRequired
+  config: PropTypes.object.isRequired
 }
 class App extends React.Component {
   state = { error: null, mounted: false }
 
   async componentDidMount() {
-    try {
-      await this.props.config.init(this.props.connector.database)
+    await this.props.config.init()
 
-      const res = await this.props.connector.init()
-
-      if (res) this.setState({ mounted: true })
-    } catch (e) {
-      this.setState({ error: e.message })
-    }
+    this.setState({ mounted: true })
 
     ipcRenderer.on('app-close', this.handleExit)
   }
@@ -40,4 +33,4 @@ class App extends React.Component {
 }
 App.propTypes = propTypes
 
-export default withConfig(withConnector(App))
+export default withConfig(App)

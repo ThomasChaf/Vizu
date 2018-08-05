@@ -6,23 +6,22 @@ import QueryBuilder from './query-builder'
 class Connector {
   _database = 'allsquare_prod'
 
-  async init() {
+  async login(credentials) {
+    this._credentials = credentials
+
+    if (this._orm) this._orm.close()
+
     this._orm = await TypeORM.createConnection({
       type: 'mysql',
 
-      host: 'localhost',
-
-      database: this._database,
-
-      username: 'allsquare',
-      password: ''
+      ...credentials
     })
 
     return this._orm
   }
 
   get database() {
-    return this._database
+    return this._credentials.database
   }
 
   async tableNames() {

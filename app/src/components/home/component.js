@@ -1,15 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Form from './form/formik'
+import './style.scss'
 
 const propTypes = {
-  onSubmit: PropTypes.func.isRequired
+  onSelect: PropTypes.func.isRequired
 }
-const Home = ({ onSubmit }) => (
-  <div>
-    HOME HEU??<button onClick={onSubmit}>Interface</button>
+const HomeComponent = (props) => (
+  <div className="home-box">
+    <Form onSubmit={props.onSelect} />
   </div>
 )
+HomeComponent.propTypes = propTypes
 
-Home.propTypes = propTypes
-
-export default Home
+export default HomeComponent
