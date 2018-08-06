@@ -22,33 +22,24 @@ const validate = async (values, connector) => {
 const propTypes = {
   config: PropTypes.object.isRequired,
   connector: PropTypes.object.isRequired,
+  initialValues: PropTypes.object.isRequired,
   onSubmit: PropTypes.func.isRequired
 }
-class FormikComponent extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { config: this.props.config.getFirstConfig() }
-  }
+const FormikComponent = (props) => (
+  <Formik
+    enableReinitialize
+    validateOnBlur={false}
+    validateOnChange={false}
+    initialValues={props.initialValues}
+    validate={(values) => validate(values, props.connector)}
+    onSubmit={async (values) => {
+      await props.config.loadDatabase(values.database)
+      props.onSubmit()
+    }}
+    render={FormComponent}
+  />
+)
 
-  updateConfig = (name) => this.setState({ config: this.props.config.get(name) })
-
-  render() {
-    return (
-      <Formik
-        enableReinitialize
-        validateOnBlur={false}
-        validateOnChange={false}
-        initialValues={this.state.config}
-        validate={(values) => validate(values, this.props.connector)}
-        onSubmit={async (values) => {
-          await this.props.config.loadDatabase(values.database)
-          this.props.onSubmit()
-        }}
-        render={FormComponent}
-      />
-    )
-  }
-}
 FormikComponent.propTypes = propTypes
 
 export default withConfig(withConnector(FormikComponent))

@@ -21,6 +21,8 @@ class ConfigurationManager {
       })
     })
 
+  getCredentials = () => this._generalConfig.credentials
+
   getConfig = (name) => _.merge({ port: 3306 }, _.find(this._generalConfig.credentials, [name]))
 
   getFirstConfig = () => this._generalConfig.credentials[0]

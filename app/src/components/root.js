@@ -5,14 +5,12 @@ import Home from './home/component'
 class Root extends React.Component {
   state = { selected: 'HOME' }
 
-  handleSelect = () => {
-    this.setState({ selected: 'INTERFACE' })
-  }
+  handleConnect = () => this.setState({ selected: 'INTERFACE' })
 
   render() {
     return (
       <React.Fragment>
-        {this.state.selected === 'HOME' && <Home onSelect={this.handleSelect} />}
+        {this.state.selected === 'HOME' && <Home onConnect={this.handleConnect} />}
         {this.state.selected === 'INTERFACE' && <Interface />}
       </React.Fragment>
     )

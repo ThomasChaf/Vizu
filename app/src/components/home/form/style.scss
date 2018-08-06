@@ -1,14 +1,6 @@
 .home-form-box {
   display: flex;
   flex-direction: column;
-
-  width: 100%;
-  max-width: 400px;
-  padding: 20px;
-
-  border-radius: 3px;
-  background-color: #fff5f1;
-  box-shadow: 10px 10px 70px -9px #000;
 }
 
 .home-form-input-box {
@@ -28,7 +20,7 @@
   margin-top: 5px;
 
   border: none;
-  border-bottom: 2px solid #e8c2c2;
+  border-bottom: 2px solid #e8e8e8;
   background-color: transparent;
 
   font-size: 20px;
