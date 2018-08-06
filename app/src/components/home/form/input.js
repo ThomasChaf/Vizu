@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Label from './label'
 
 const propTypes = {
   handleChange: PropTypes.func.isRequired,
@@ -8,11 +9,7 @@ const propTypes = {
   values: PropTypes.object
 }
 const InputComponent = (props) => (
-  <div className="home-form-input-box">
-    <label className="home-form-input-label" htmlFor={props.id}>
-      {props.id}
-    </label>
-
+  <Label value={props.id}>
     <input
       id={props.id}
       className="home-form-input-field"
@@ -21,7 +18,7 @@ const InputComponent = (props) => (
       onBlur={props.handleBlur}
       value={props.values[props.id]}
     />
-  </div>
+  </Label>
 )
 InputComponent.propTypes = propTypes
 

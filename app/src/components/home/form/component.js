@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Input from './input'
+import ColorSelector from './color-selector'
 import './style.scss'
 
 const propTypes = {
@@ -9,6 +10,7 @@ const propTypes = {
   handleBlur: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   initialValues: PropTypes.object.isRequired,
+  setFieldValue: PropTypes.func.isRequired,
   values: PropTypes.object
 }
 const FormComponent = (props) => (
@@ -16,6 +18,8 @@ const FormComponent = (props) => (
     {props.errors._error && <span className="home-form-error">{props.errors._error}</span>}
 
     <Input id="name" {...props} />
+
+    <ColorSelector onSelect={(color) => props.setFieldValue('color', color)} value={props.values.color} />
 
     <Input id="host" {...props} />
 

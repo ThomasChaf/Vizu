@@ -67,3 +67,25 @@
 
   outline: none;
 }
+
+.home-form-color-list {
+  height: 25px;
+}
+
+.home-form-color {
+  width: 20px;
+  height: 20px;
+  margin-right: 7px;
+
+  vertical-align: middle;
+
+  border: 1px solid #000;
+  border-radius: 50%;
+}
+.home-form-color:focus {
+  outline: none;
+}
+
+.home-form-color.selected {
+  border: 3px solid rgb(208, 89, 4);
+}
