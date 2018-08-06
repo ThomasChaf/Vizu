@@ -30,7 +30,13 @@ class DropdowComponent extends React.Component {
         <Transition in={this.state.toggle}>
           <div className="home-dropdown-container">
             {this.props.credentials.map((credential, key) => (
-              <div className="home-dropdown-row" key={key} onClick={() => this.handleSelect(credential)}>
+              <div
+                className="home-dropdown-row"
+                style={colorHelper(credential)}
+                key={key}
+                onClick={() => this.handleSelect(credential)}
+              >
+                <span />
                 {credential.name}
               </div>
             ))}

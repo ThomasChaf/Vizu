@@ -8,13 +8,14 @@ import FormComponent from './component'
 
 const validate = async (values, connector) => {
   const requiredError = ['name', 'host', 'username', 'password', 'database', 'port'].reduce(
-    (acc, field) => (!values[field] ? _.merge(acc, { field: 'Required' }) : acc),
+    (acc, field) => (!values[field] ? _.merge(acc, { [field]: 'Required' }) : acc),
     null
   )
 
   if (requiredError) throw requiredError
 
   await connector.login(values).catch((e) => {
+    console.log(e)
     throw { _error: e.message }
   })
 }

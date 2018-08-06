@@ -17,6 +17,7 @@
 }
 .home-dropdown-container {
   position: absolute;
+  z-index: 10;
   top: 100%;
   left: 0;
 
@@ -31,10 +32,19 @@
   box-shadow: 0 0 10px 1px rgba(181, 179, 179, 0.57);
 }
 .home-dropdown-row {
+  position: relative;
+
   padding: 10px 20px;
 }
-.home-dropdown-row:hover {
-  background-color: rgba(0, 0, 0, 0.1);
+.home-dropdown-row > span {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.home-dropdown-row:hover > span {
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .home-dropdown-animation-enter {

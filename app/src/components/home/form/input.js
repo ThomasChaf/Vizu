@@ -6,10 +6,11 @@ const propTypes = {
   handleChange: PropTypes.func.isRequired,
   handleBlur: PropTypes.func.isRequired,
   id: PropTypes.string.isRequired,
+  errors: PropTypes.object,
   values: PropTypes.object
 }
 const InputComponent = (props) => (
-  <Label value={props.id}>
+  <Label value={props.id} error={props.errors[props.id]}>
     <input
       id={props.id}
       className="home-form-input-field"
