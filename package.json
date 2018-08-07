@@ -3,9 +3,7 @@
   "version": "1.0.0",
   "description": "Electron + React 16 + Webpack 4 template.",
   "main": "main_process.js",
-  "moduleRoots": [
-    "app/src"
-  ],
+  "moduleRoots": ["app/src"],
   "scripts": {
     "bundle": "webpack --mode development",
     "serve": "electron .",
@@ -19,6 +17,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.54",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.54",
     "@babel/preset-react": "^7.0.0-beta.54",
+    "@fortawesome/fontawesome-free": "^5.2.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.0-beta.4",
     "babel-plugin-module-resolver": "^3.1.1",

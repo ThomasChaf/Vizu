@@ -10,6 +10,7 @@ const propTypes = {
 const RowComponent = (props) => (
   <span onClick={props.onClick} className={cn('tables-list-row', { selected: props.selected })}>
     {props.name}
+    <span className="fas fa-ellipsis-h" />
   </span>
 )
 
