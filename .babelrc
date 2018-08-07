@@ -4,12 +4,14 @@
     "@babel/plugin-proposal-class-properties",
     "@babel/plugin-proposal-object-rest-spread",
     "@babel/plugin-proposal-optional-chaining",
+    "@babel/plugin-proposal-export-default-from",
     [
       "module-resolver",
       {
         "root": ["./app/src"],
         "alias": {
           "@components": "./app/src/components",
+          "@library": "./app/src/library",
           "@constants": "./app/src/constants",
           "@contexts": "./app/src/contexts",
           "@modules": "./app/src/modules"

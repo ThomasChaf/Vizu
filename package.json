@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "Electron + React 16 + Webpack 4 template.",
   "main": "main_process.js",
-  "moduleRoots": ["app/src"],
+  "moduleRoots": [
+    "app/src"
+  ],
   "scripts": {
     "bundle": "webpack --mode development",
     "serve": "electron .",
@@ -14,6 +16,7 @@
   "devDependencies": {
     "@babel/core": "^7.0.0-beta.54",
     "@babel/plugin-proposal-class-properties": "^7.0.0-beta.54",
+    "@babel/plugin-proposal-export-default-from": "^7.0.0-beta.56",
     "@babel/plugin-proposal-object-rest-spread": "^7.0.0-beta.54",
     "@babel/plugin-proposal-optional-chaining": "^7.0.0-beta.54",
     "@babel/preset-react": "^7.0.0-beta.54",
