@@ -1,4 +1,5 @@
 export Box from './box'
+export IconMenu from './icon-menu'
 export Provider from './provider'
 export Row from './row'
 export Toggler from './toggler'

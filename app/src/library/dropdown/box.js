@@ -5,7 +5,7 @@ const propTypes = {
   children: PropTypes.node.isRequired
 }
 const DropdownBoxComponent = ({ children, ...props }) => (
-  <div className="home-dropdown-container" {...props}>
+  <div className="vz-dropdown-container" {...props}>
     {children}
   </div>
 )

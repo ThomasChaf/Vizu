@@ -1,21 +1,13 @@
-.home-dropdown {
+.vz-dropdown {
   position: relative;
 }
-.home-dropdown-icon {
-  float: right;
-
-  color: #666;
-
-  font-size: 24px;
-  line-height: 20px;
-}
-.home-dropdown-toggler {
+.vz-dropdown-toggler {
   padding: 10px 20px;
 
   border-radius: 5px;
   box-shadow: 0 0 10px 1px rgba(181, 179, 179, 0.57);
 }
-.home-dropdown-container {
+.vz-dropdown-container {
   position: absolute;
   z-index: 10;
   top: 100%;
@@ -31,49 +23,49 @@
   background: white;
   box-shadow: 0 0 10px 1px rgba(181, 179, 179, 0.57);
 }
-.home-dropdown-row {
+.vz-dropdown-row {
   position: relative;
 
   padding: 10px 20px;
 }
-.home-dropdown-row > span {
+.vz-dropdown-row > span {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
 }
-.home-dropdown-row:hover > span {
+.vz-dropdown-row:hover > span {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.home-dropdown-animation-enter {
+.vz-dropdown-animation-enter {
   display: initial;
 
   height: 0;
 }
-.home-dropdown-animation-enter-active {
+.vz-dropdown-animation-enter-active {
   height: 300px;
 
   transition: height 0.35s ease;
 }
-.home-dropdown-animation-enter-done {
+.vz-dropdown-animation-enter-done {
   display: initial;
 
   height: 300px;
 }
 
-.home-dropdown-animation-exit {
+.vz-dropdown-animation-exit {
   display: initial;
 
   height: 300px;
 }
-.home-dropdown-animation-exit-active {
+.vz-dropdown-animation-exit-active {
   height: 0;
 
   transition: height 0.35s ease;
 }
-.home-dropdown-animation-exit-done {
+.vz-dropdown-animation-exit-done {
   display: none;
 
   height: 0;

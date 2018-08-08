@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import cn from 'classnames'
+import Menu from './menu/component'
 
 const propTypes = {
   name: PropTypes.string.isRequired,
@@ -10,7 +11,7 @@ const propTypes = {
 const RowComponent = (props) => (
   <span onClick={props.onClick} className={cn('tables-list-row', { selected: props.selected })}>
     {props.name}
-    <span className="fas fa-ellipsis-h" />
+    <Menu />
   </span>
 )
 

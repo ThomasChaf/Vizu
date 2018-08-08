@@ -5,7 +5,7 @@ const propTypes = {
   children: PropTypes.node.isRequired
 }
 const DropdownTogglerComponent = ({ children, ...props }) => (
-  <div className="home-dropdown-toggler" {...props}>
+  <div className="vz-dropdown-toggler" {...props}>
     {children}
   </div>
 )
